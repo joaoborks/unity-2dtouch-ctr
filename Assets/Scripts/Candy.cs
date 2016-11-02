@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Candy : MonoBehaviour
@@ -14,5 +14,8 @@ public class Candy : MonoBehaviour
     public void GetEaten()
     {
         gameObject.SetActive(false);
+        foreach (Rope rope in ropes)
+            if (!rope.broken)
+                rope.Break(transform.position, false);
     }
 }

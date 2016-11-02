@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Rope : MonoBehaviour
 {
+    public bool broken { get; private set; }
+
     Transform fragment,
         candy,
         tip;
@@ -10,7 +12,6 @@ public class Rope : MonoBehaviour
     EdgeCollider2D col;
     DistanceJoint2D dist;
     RaycastHit2D[] hit;
-    bool broken;
 
     void Awake()
     {
@@ -49,6 +50,10 @@ public class Rope : MonoBehaviour
 
     public void Break(Vector2 point)
     {
+        Break(point, true);
+    }
+    public void Break(Vector2 point, bool fragmentate)
+    {
         if (broken)
             return;
 
@@ -61,11 +66,14 @@ public class Rope : MonoBehaviour
         dist.anchor = Vector2.zero;
         dist.distance = Vector2.Distance(point, transform.position);
 
-        // The remaining rope should stick with the candy
-        fragment.SetParent(candy, false);
-        fragment.transform.localPosition = Vector2.zero;
-        fragment.gameObject.SetActive(true);
-        fragment.GetComponent<RopeFragment>().Detach(point);
+        if (fragmentate)
+        {
+            // The remaining rope should stick with the candy
+            fragment.SetParent(candy, false);
+            fragment.transform.localPosition = Vector2.zero;
+            fragment.gameObject.SetActive(true);
+            fragment.GetComponent<RopeFragment>().Detach(point);
+        }
 
         // Prevent from breaking again
         broken = true;

@@ -9,22 +9,25 @@ public class BottomLine : MonoBehaviour
 
     Frog frog;
 
+    Vector2 boxPos
+    {
+        get { return (Vector2)transform.position + offset; }
+    }
+
     void Awake()
     {
         frog = FindObjectOfType<Frog>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (Physics2D.OverlapBox(transform.position + (Vector3)offset, size, 0, layer))
-        {
+        if (Physics2D.OverlapBox(boxPos, size, 0, layer))
             frog.Lose();
-        }
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position + (Vector3)offset, size);
+        Gizmos.DrawWireCube(boxPos, size);
     }
 }
