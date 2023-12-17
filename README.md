@@ -1,5 +1,4 @@
 # Unity 5 Study - 2D Touch Game
-*Created by @JoaoBorks \<joao.borks@gmail.com\> on 11/02/2016 (mm/dd/yyyy)*
 
 Disclaimer
 ---
